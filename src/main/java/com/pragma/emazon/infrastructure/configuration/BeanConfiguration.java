@@ -1,5 +1,6 @@
 package com.pragma.emazon.infrastructure.configuration;
 
+import com.pragma.emazon.application.mapper.CategoryResponseMapper;
 import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
 import com.pragma.emazon.domain.usecase.CategoryUseCase;
@@ -16,10 +17,11 @@ public class BeanConfiguration {
 
     private final ICategoryRepository categoryRepository;
     private final CategoryEntityMapper categoryEntityMapper;
+    private final CategoryResponseMapper categoryResponseMapper;
 
     @Bean
     public ICategoryPersistencePort categoryPersistencePort() {
-        return new CategoryJpaAdapter(categoryRepository, categoryEntityMapper);
+        return new CategoryJpaAdapter(categoryRepository, categoryEntityMapper, categoryResponseMapper);
     }
 
     @Bean

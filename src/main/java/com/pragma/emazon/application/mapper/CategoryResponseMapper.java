@@ -9,5 +9,8 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface CategoryResponseMapper {
+
     Category toCategory(CategoryResponse categoryResponse);
+
+    CategoryResponse toCategoryResponse(Category category);
 }

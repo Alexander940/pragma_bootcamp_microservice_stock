@@ -1,7 +1,8 @@
 package com.pragma.emazon.application.handler;
 
 import com.pragma.emazon.application.dto.CategoryRequest;
+import com.pragma.emazon.application.dto.CategoryResponse;
 
 public interface ICategoryHandler {
-    void saveCategory(CategoryRequest category);
+    CategoryResponse saveCategory(CategoryRequest category);
 }

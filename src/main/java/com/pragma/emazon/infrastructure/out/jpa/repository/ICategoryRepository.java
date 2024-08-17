@@ -1,7 +1,7 @@
 package com.pragma.emazon.infrastructure.out.jpa.repository;
 
-import com.pragma.emazon.application.dto.CategoryResponse;
 import com.pragma.emazon.infrastructure.out.jpa.entity.CategoryEntity;
+import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,7 @@ public interface ICategoryRepository extends JpaRepository<CategoryEntity, Long>
 
     Optional<CategoryEntity> findByName(String name);
 
-    CategoryResponse save(CategoryEntity categoryEntity);
+    @NonNull
+    CategoryEntity save(@NonNull CategoryEntity categoryEntity);
 
 }

@@ -1,6 +1,7 @@
 package com.pragma.emazon.infrastructure.input.rest;
 
 import com.pragma.emazon.application.dto.CategoryRequest;
+import com.pragma.emazon.application.dto.CategoryResponse;
 import com.pragma.emazon.application.handler.ICategoryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,8 @@ public class CategoryRestController {
     private final ICategoryHandler categoryHandler;
 
     @PostMapping
-    public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest) {
-        categoryHandler.saveCategory(categoryRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<CategoryResponse> saveCategory(@RequestBody CategoryRequest categoryRequest) {
+        CategoryResponse categoryResponse = categoryHandler.saveCategory(categoryRequest);
+        return new ResponseEntity<>(categoryResponse, HttpStatus.CREATED);
     }
 }
