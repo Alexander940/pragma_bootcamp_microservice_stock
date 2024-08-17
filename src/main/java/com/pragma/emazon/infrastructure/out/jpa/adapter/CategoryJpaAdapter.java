@@ -1,6 +1,7 @@
 package com.pragma.emazon.infrastructure.out.jpa.adapter;
 
 import com.pragma.emazon.domain.model.Category;
+import com.pragma.emazon.infrastructure.exception.CategoryAlreadyExistsException;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
 import com.pragma.emazon.infrastructure.out.jpa.mapper.CategoryEntityMapper;
 import com.pragma.emazon.infrastructure.out.jpa.repository.ICategoryRepository;
@@ -14,6 +15,9 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
     @Override
     public void saveCategory(Category category) {
-
+        if(categoryRepository.findByName(category.getName()).isPresent()) {
+            throw new CategoryAlreadyExistsException();
+        }
+        categoryRepository.save(categoryEntityMapper.toEntity(category));
     }
 }
