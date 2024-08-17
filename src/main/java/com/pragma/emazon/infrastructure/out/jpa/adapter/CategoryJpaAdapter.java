@@ -22,7 +22,10 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
         if(categoryRepository.findByName(category.getName()).isPresent()) {
             throw new CategoryAlreadyExistsException();
         }
-        CategoryEntity categoryEntity = categoryRepository.save(categoryEntityMapper.toEntity(category));
+
+        CategoryEntity categoryEntity = categoryEntityMapper.toEntity(category);
+
+        categoryRepository.save(categoryEntity);
 
         return categoryResponseMapper.toCategoryResponse(categoryEntityMapper.toCategory(categoryEntity));
     }
