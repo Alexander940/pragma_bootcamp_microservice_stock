@@ -7,6 +7,8 @@ import com.pragma.emazon.infrastructure.out.jpa.mapper.CategoryEntityMapper;
 import com.pragma.emazon.infrastructure.out.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
@@ -24,5 +26,10 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
         return categoryRepository.findByName(name)
                 .map(categoryEntityMapper::toCategory)
                 .orElse(null);
+    }
+
+    @Override
+    public List<Category> findAllCategories() {
+        return categoryEntityMapper.toCategories(categoryRepository.findAll());
     }
 }

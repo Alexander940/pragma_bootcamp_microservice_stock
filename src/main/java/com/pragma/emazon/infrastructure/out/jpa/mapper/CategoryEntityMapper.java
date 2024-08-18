@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
@@ -17,4 +19,6 @@ public interface CategoryEntityMapper {
     CategoryEntity toEntity(Category category);
 
     Category toCategory(CategoryEntity categoryEntity);
+
+    List<Category> toCategories(List<CategoryEntity> categoryEntities);
 }

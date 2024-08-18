@@ -14,6 +14,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -43,5 +45,10 @@ public class CategoryHandler implements ICategoryHandler{
         Category category = categoryServicePort.saveCategory(categoryRequestMapper.toCategory(categoryRequest));
 
         return categoryResponseMapper.toCategoryResponse(category);
+    }
+
+    @Override
+    public List<CategoryResponse> findAllCategories() {
+        return categoryResponseMapper.toCategoryResponses(categoryServicePort.findAllCategories());
     }
 }

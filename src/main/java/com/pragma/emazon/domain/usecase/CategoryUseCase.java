@@ -4,8 +4,11 @@ import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.model.Category;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
 
+import java.util.List;
+
 public class CategoryUseCase implements ICategoryServicePort {
-    private ICategoryPersistencePort categoryPersistencePort;
+
+    private final ICategoryPersistencePort categoryPersistencePort;
 
     public CategoryUseCase(ICategoryPersistencePort categoryPersistencePort) {
         this.categoryPersistencePort = categoryPersistencePort;
@@ -19,6 +22,11 @@ public class CategoryUseCase implements ICategoryServicePort {
     @Override
     public Category findCategoryByName(String name) {
         return categoryPersistencePort.findCategoryByName(name);
+    }
+
+    @Override
+    public List<Category> findAllCategories() {
+        return categoryPersistencePort.findAllCategories();
     }
 
 
