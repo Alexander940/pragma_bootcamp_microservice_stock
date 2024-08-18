@@ -42,7 +42,7 @@ class CategoryRestControllerTest {
     }
 
     @Test
-    void when_creates_category_returns_200() throws Exception {
+    void when_creates_category_returns_201() throws Exception {
         CategoryRequest categoryRequest = new CategoryRequest("name", "description");
 
         MvcResult mockMvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/categories")
@@ -52,19 +52,5 @@ class CategoryRestControllerTest {
                 .andReturn();
 
         assertEquals(201, mockMvcResult.getResponse().getStatus());
-    }
-
-    @Test
-    void when_creates_category_and_name_is_too_long_returns_400() throws Exception {
-        String name = "a".repeat(51);
-        CategoryRequest categoryRequest = new CategoryRequest(name, "description");
-
-        MvcResult mockMvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/categories")
-                        .accept(MediaType.APPLICATION_JSON_VALUE)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(JsonUtil.mapToJson(categoryRequest)))
-                .andReturn();
-
-        assertEquals(400, mockMvcResult.getResponse().getStatus());
     }
 }

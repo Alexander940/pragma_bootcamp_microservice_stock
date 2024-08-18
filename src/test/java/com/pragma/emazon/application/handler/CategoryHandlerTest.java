@@ -14,12 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 class CategoryHandlerTest {
@@ -43,9 +39,9 @@ class CategoryHandlerTest {
         Category category = new Category(1L,"name", "description");
         CategoryRequest categoryRequest = new CategoryRequest("name", "description");
 
-        when(categoryRequestMapper.toCategory(eq(categoryRequest))).thenReturn(category);
-        when(categoryServicePort.saveCategory(eq(category))).thenReturn(category);
-        when(categoryResponseMapper.toCategoryResponse(eq(category))).thenReturn(new CategoryResponse("name", "description"));
+        when(categoryRequestMapper.toCategory(categoryRequest)).thenReturn(category);
+        when(categoryServicePort.saveCategory(category)).thenReturn(category);
+        when(categoryResponseMapper.toCategoryResponse(category)).thenReturn(new CategoryResponse("name", "description"));
 
         CategoryResponse categoryResponse = categoryHandler.saveCategory(categoryRequest);
 
@@ -80,7 +76,7 @@ class CategoryHandlerTest {
         Category category = new Category(1L,"name", "description");
         CategoryRequest categoryRequest = new CategoryRequest("name", "description");
 
-        when(categoryServicePort.findCategoryByName(eq(categoryRequest.name()))).thenReturn(category);
+        when(categoryServicePort.findCategoryByName(categoryRequest.name())).thenReturn(category);
 
         assertThrows(CategoryAlreadyExistsException.class, () -> categoryHandler.saveCategory(categoryRequest));
     }

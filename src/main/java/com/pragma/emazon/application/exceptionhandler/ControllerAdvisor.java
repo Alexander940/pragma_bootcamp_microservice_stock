@@ -1,4 +1,4 @@
-package com.pragma.emazon.application.exceptionHandler;
+package com.pragma.emazon.application.exceptionhandler;
 
 import com.pragma.emazon.application.exception.CategoryAlreadyExistsException;
 import com.pragma.emazon.application.exception.MandatoryParameterException;
@@ -32,6 +32,6 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> handleCategoryAlreadyExistsException(
             CategoryAlreadyExistsException categoryAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(MESSAGE, com.pragma.emazon.infrastructure.exceptionhandler.ExceptionResponse.CATEGORY_ALREADY_EXISTS.getMessage()));
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORY_ALREADY_EXISTS.getMessage()));
     }
 }

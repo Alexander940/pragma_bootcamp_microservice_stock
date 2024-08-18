@@ -2,8 +2,6 @@ package com.pragma.emazon.infrastructure.input.rest;
 
 import com.pragma.emazon.application.dto.CategoryRequest;
 import com.pragma.emazon.application.dto.CategoryResponse;
-import com.pragma.emazon.application.exception.CategoryAlreadyExistsException;
-import com.pragma.emazon.application.exceptionHandler.ExceptionResponse;
 import com.pragma.emazon.application.handler.ICategoryHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
