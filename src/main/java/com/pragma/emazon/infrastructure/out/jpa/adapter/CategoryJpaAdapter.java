@@ -27,6 +27,6 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
         categoryRepository.save(categoryEntity);
 
-        return categoryResponseMapper.toCategoryResponse(categoryEntityMapper.toCategory(categoryEntity));
+        return categoryResponseMapper.toCategoryResponse(category);
     }
 }

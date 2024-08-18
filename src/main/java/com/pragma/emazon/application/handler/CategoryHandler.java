@@ -20,6 +20,7 @@ public class CategoryHandler implements ICategoryHandler{
     @Override
     public CategoryResponse saveCategory(CategoryRequest categoryRequest) {
         Category category = categoryRequestMapper.toCategory(categoryRequest);
-        return categoryServicePort.saveCategory(category);
+        CategoryResponse categoryResponse = categoryServicePort.saveCategory(category);
+        return categoryResponse;
     }
 }
