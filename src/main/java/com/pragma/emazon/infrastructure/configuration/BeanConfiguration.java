@@ -17,11 +17,10 @@ public class BeanConfiguration {
 
     private final ICategoryRepository categoryRepository;
     private final CategoryEntityMapper categoryEntityMapper;
-    private final CategoryResponseMapper categoryResponseMapper;
 
     @Bean
     public ICategoryPersistencePort categoryPersistencePort() {
-        return new CategoryJpaAdapter(categoryRepository, categoryEntityMapper, categoryResponseMapper);
+        return new CategoryJpaAdapter(categoryRepository, categoryEntityMapper);
     }
 
     @Bean

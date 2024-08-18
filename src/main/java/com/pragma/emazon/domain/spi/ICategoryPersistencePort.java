@@ -1,8 +1,8 @@
 package com.pragma.emazon.domain.spi;
 
-import com.pragma.emazon.application.dto.CategoryResponse;
 import com.pragma.emazon.domain.model.Category;
 
 public interface ICategoryPersistencePort {
-    CategoryResponse saveCategory(Category category);
+    Category saveCategory(Category category);
+    Category findCategoryByName(String name);
 }

@@ -2,7 +2,11 @@ package com.pragma.emazon.application.handler;
 
 import com.pragma.emazon.application.dto.CategoryRequest;
 import com.pragma.emazon.application.dto.CategoryResponse;
+import com.pragma.emazon.application.exception.CategoryAlreadyExistsException;
+import com.pragma.emazon.application.exception.MandatoryParameterException;
+import com.pragma.emazon.application.exception.StringTooLongException;
 import com.pragma.emazon.application.mapper.CategoryRequestMapper;
+import com.pragma.emazon.application.mapper.CategoryResponseMapper;
 import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.model.Category;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -23,12 +28,14 @@ class CategoryHandlerTest {
     @Mock
     private CategoryRequestMapper categoryRequestMapper;
     @Mock
+    private CategoryResponseMapper categoryResponseMapper;
+    @Mock
     private ICategoryServicePort categoryServicePort;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        categoryHandler = new CategoryHandler(categoryRequestMapper, categoryServicePort);
+        categoryHandler = new CategoryHandler(categoryRequestMapper, categoryResponseMapper, categoryServicePort);
     }
 
     @Test
@@ -37,11 +44,44 @@ class CategoryHandlerTest {
         CategoryRequest categoryRequest = new CategoryRequest("name", "description");
 
         when(categoryRequestMapper.toCategory(eq(categoryRequest))).thenReturn(category);
-        when(categoryServicePort.saveCategory(eq(category))).thenReturn(new CategoryResponse("name", "description"));
+        when(categoryServicePort.saveCategory(eq(category))).thenReturn(category);
+        when(categoryResponseMapper.toCategoryResponse(eq(category))).thenReturn(new CategoryResponse("name", "description"));
 
         CategoryResponse categoryResponse = categoryHandler.saveCategory(categoryRequest);
 
         assertEquals(categoryRequest.name(), categoryResponse.name());
+    }
 
+    @Test
+    void when_saveCategory_handler_is_called_and_name_is_too_long() {
+        String name = "a".repeat(51);
+        CategoryRequest categoryRequest = new CategoryRequest(name, "description");
+
+        assertThrows(StringTooLongException.class, () -> categoryHandler.saveCategory(categoryRequest));
+    }
+
+    @Test
+    void when_saveCategory_handler_is_called_and_description_is_too_long() {
+        String description = "a".repeat(91);
+        CategoryRequest categoryRequest = new CategoryRequest("name", description);
+
+        assertThrows(StringTooLongException.class, () -> categoryHandler.saveCategory(categoryRequest));
+    }
+
+    @Test
+    void when_saveCategory_handler_is_called_and_description_is_missing() {
+        CategoryRequest categoryRequest = new CategoryRequest("name", "");
+
+        assertThrows(MandatoryParameterException.class, () -> categoryHandler.saveCategory(categoryRequest));
+    }
+
+    @Test
+    void when_saveCategory_handler_is_called_and_the_category_name_already_exists() {
+        Category category = new Category(1L,"name", "description");
+        CategoryRequest categoryRequest = new CategoryRequest("name", "description");
+
+        when(categoryServicePort.findCategoryByName(eq(categoryRequest.name()))).thenReturn(category);
+
+        assertThrows(CategoryAlreadyExistsException.class, () -> categoryHandler.saveCategory(categoryRequest));
     }
 }

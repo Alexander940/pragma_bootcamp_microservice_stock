@@ -3,6 +3,7 @@ package com.pragma.emazon.infrastructure.input.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pragma.emazon.application.dto.CategoryRequest;
+import com.pragma.emazon.infrastructure.input.rest.util.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,20 +42,29 @@ class CategoryRestControllerTest {
     }
 
     @Test
-    void create_category() throws Exception {
+    void when_creates_category_returns_200() throws Exception {
         CategoryRequest categoryRequest = new CategoryRequest("name", "description");
 
         MvcResult mockMvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/categories")
                         .accept(MediaType.APPLICATION_JSON_VALUE)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(mapToJson(categoryRequest)))
+                        .content(JsonUtil.mapToJson(categoryRequest)))
                 .andReturn();
 
         assertEquals(201, mockMvcResult.getResponse().getStatus());
     }
 
-    private String mapToJson(Object object) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(object);
+    @Test
+    void when_creates_category_and_name_is_too_long_returns_400() throws Exception {
+        String name = "a".repeat(51);
+        CategoryRequest categoryRequest = new CategoryRequest(name, "description");
+
+        MvcResult mockMvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/categories")
+                        .accept(MediaType.APPLICATION_JSON_VALUE)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(JsonUtil.mapToJson(categoryRequest)))
+                .andReturn();
+
+        assertEquals(400, mockMvcResult.getResponse().getStatus());
     }
 }

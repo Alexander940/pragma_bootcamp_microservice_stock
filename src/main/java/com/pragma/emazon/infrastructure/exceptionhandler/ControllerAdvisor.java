@@ -1,6 +1,6 @@
 package com.pragma.emazon.infrastructure.exceptionhandler;
 
-import com.pragma.emazon.infrastructure.exception.CategoryAlreadyExistsException;
+import com.pragma.emazon.application.exception.CategoryAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

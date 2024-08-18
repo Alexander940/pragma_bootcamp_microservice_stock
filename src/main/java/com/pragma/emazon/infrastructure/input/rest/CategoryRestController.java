@@ -2,6 +2,8 @@ package com.pragma.emazon.infrastructure.input.rest;
 
 import com.pragma.emazon.application.dto.CategoryRequest;
 import com.pragma.emazon.application.dto.CategoryResponse;
+import com.pragma.emazon.application.exception.CategoryAlreadyExistsException;
+import com.pragma.emazon.application.exceptionHandler.ExceptionResponse;
 import com.pragma.emazon.application.handler.ICategoryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/v1/categories")
