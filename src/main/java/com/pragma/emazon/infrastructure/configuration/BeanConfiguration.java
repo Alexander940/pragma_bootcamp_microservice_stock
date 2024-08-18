@@ -1,6 +1,5 @@
 package com.pragma.emazon.infrastructure.configuration;
 
-import com.pragma.emazon.application.mapper.CategoryResponseMapper;
 import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
 import com.pragma.emazon.domain.usecase.CategoryUseCase;

@@ -1,7 +1,6 @@
 package com.pragma.emazon.infrastructure.out.jpa.adapter;
 
 import com.pragma.emazon.domain.model.Category;
-import com.pragma.emazon.application.exception.CategoryAlreadyExistsException;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
 import com.pragma.emazon.infrastructure.out.jpa.entity.CategoryEntity;
 import com.pragma.emazon.infrastructure.out.jpa.mapper.CategoryEntityMapper;
