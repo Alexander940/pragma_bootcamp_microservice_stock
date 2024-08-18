@@ -1,11 +1,11 @@
 package com.pragma.emazon.domain.api;
 
 import com.pragma.emazon.domain.model.Category;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ICategoryServicePort {
     Category saveCategory(Category category);
     Category findCategoryByName(String name);
-    List<Category> findAllCategories();
+    Page<Category> findAllCategories(Pageable pageable);
 }

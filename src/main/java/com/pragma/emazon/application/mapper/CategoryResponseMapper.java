@@ -4,17 +4,22 @@ import com.pragma.emazon.application.dto.CategoryResponse;
 import com.pragma.emazon.domain.model.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
-public interface CategoryResponseMapper {
+public abstract class CategoryResponseMapper {
 
-    Category toCategory(CategoryResponse categoryResponse);
+    public abstract CategoryResponse toCategoryResponse(Category category);
 
-    CategoryResponse toCategoryResponse(Category category);
-
-    List<CategoryResponse> toCategoryResponses(List<Category> categories);
+    public Page<CategoryResponse> toCategoryResponsesPage(Page<Category> categories){
+        List<CategoryResponse> categoryResponses = categories
+                .map(this::toCategoryResponse)
+                .getContent();
+        return new PageImpl<>(categoryResponses, categories.getPageable(), categories.getTotalElements());
+    }
 }

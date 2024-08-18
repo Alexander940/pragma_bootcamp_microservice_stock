@@ -3,8 +3,8 @@ package com.pragma.emazon.domain.usecase;
 import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.model.Category;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public class CategoryUseCase implements ICategoryServicePort {
 
@@ -25,9 +25,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public List<Category> findAllCategories() {
-        return categoryPersistencePort.findAllCategories();
+    public Page<Category> findAllCategories(Pageable pageable) {
+        return categoryPersistencePort.findAllCategories(pageable);
     }
-
-
 }

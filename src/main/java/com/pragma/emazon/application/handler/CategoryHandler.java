@@ -12,9 +12,9 @@ import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.model.Category;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +48,7 @@ public class CategoryHandler implements ICategoryHandler{
     }
 
     @Override
-    public List<CategoryResponse> findAllCategories() {
-        return categoryResponseMapper.toCategoryResponses(categoryServicePort.findAllCategories());
+    public Page<CategoryResponse> findAllCategories(Pageable pageable) {
+        return categoryResponseMapper.toCategoryResponsesPage(categoryServicePort.findAllCategories(pageable));
     }
 }

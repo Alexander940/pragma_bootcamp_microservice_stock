@@ -8,11 +8,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -34,7 +35,12 @@ public class CategoryRestController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<CategoryResponse>> findAllCategories() {
-        return ResponseEntity.ok(categoryHandler.findAllCategories());
+    public ResponseEntity<Page<CategoryResponse>> findAllCategories(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CategoryResponse> categoryResponses = categoryHandler.findAllCategories(pageable);
+        return ResponseEntity.ok(categoryResponses);
     }
 }

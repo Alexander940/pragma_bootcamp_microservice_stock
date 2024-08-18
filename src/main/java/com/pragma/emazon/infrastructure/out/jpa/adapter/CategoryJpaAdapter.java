@@ -6,6 +6,8 @@ import com.pragma.emazon.infrastructure.out.jpa.entity.CategoryEntity;
 import com.pragma.emazon.infrastructure.out.jpa.mapper.CategoryEntityMapper;
 import com.pragma.emazon.infrastructure.out.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     }
 
     @Override
-    public List<Category> findAllCategories() {
-        return categoryEntityMapper.toCategories(categoryRepository.findAll());
+    public Page<Category> findAllCategories(Pageable pageable) {
+        return categoryEntityMapper.toCategoriesPage(categoryRepository.findAll(pageable));
     }
 }
