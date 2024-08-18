@@ -35,6 +35,11 @@ public class CategoryRestController {
         return new ResponseEntity<>(categoryResponse, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Get all category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Categories have been successfully obtained", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Server internal error", content = @Content)
+    })
     @GetMapping("/all")
     public ResponseEntity<Page<CategoryResponse>> findAllCategories(
             @RequestParam(defaultValue = "0") Integer page,
