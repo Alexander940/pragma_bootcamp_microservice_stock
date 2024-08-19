@@ -1,8 +1,8 @@
 package com.pragma.emazon.application.util;
 
-public class CategoryHandlerUtil {
+public class CategoryUtil {
 
-    private CategoryHandlerUtil() {
+    private CategoryUtil() {
     }
 
     public static boolean isCategoryNameTooLong(String name) {
