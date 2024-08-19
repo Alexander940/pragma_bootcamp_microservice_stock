@@ -20,7 +20,7 @@ public class BrandHandler implements IBrandHandler {
     private final IBrandServicePort brandServicePort;
 
     @Override
-    public BrandResponse createBrand(BrandRequest brandRequest) {
+    public BrandResponse saveBrand(BrandRequest brandRequest) {
         Brand brand = brandServicePort.saveBrand(brandRequestMapper.toBrand(brandRequest));
 
         return brandResponseMapper.toBrandResponse(brand);

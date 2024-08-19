@@ -4,5 +4,5 @@ import com.pragma.emazon.application.dto.BrandRequest;
 import com.pragma.emazon.application.dto.BrandResponse;
 
 public interface IBrandHandler {
-    BrandResponse createBrand(BrandRequest brandRequest);
+    BrandResponse saveBrand(BrandRequest brandRequest);
 }
