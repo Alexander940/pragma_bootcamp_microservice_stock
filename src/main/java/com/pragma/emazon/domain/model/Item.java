@@ -1,17 +1,19 @@
 package com.pragma.emazon.domain.model;
 
-public class Brand {
+public class Item {
 
     private Long id;
     private String name;
     private String description;
-    private Item [] items;
+    private int quantity;
+    private double price;
 
-    public Brand(Long id, String name, String description, Item [] items) {
+    public Item(Long id, String name, String description, int quantity, double price) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.items = items;
+        this.quantity = quantity;
+        this.price = price;
     }
 
     public Long getId() {
@@ -38,11 +40,19 @@ public class Brand {
         this.description = description;
     }
 
-    public Item[] getItems() {
-        return items;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setItems(Item[] items) {
-        this.items = items;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
