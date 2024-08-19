@@ -5,9 +5,13 @@ import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface IBrandRepository extends JpaRepository<BrandEntity, Long> {
 
     @NonNull
     BrandEntity save(BrandEntity brandEntity);
+
+    Optional<BrandEntity> findByName(String name);
 }

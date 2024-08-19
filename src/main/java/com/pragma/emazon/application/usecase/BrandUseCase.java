@@ -1,5 +1,6 @@
 package com.pragma.emazon.application.usecase;
 
+import com.pragma.emazon.application.exception.BrandAlreadyExistsException;
 import com.pragma.emazon.application.exception.MandatoryParameterException;
 import com.pragma.emazon.application.exception.StringTooLongException;
 import com.pragma.emazon.application.util.BrandUtil;
@@ -27,6 +28,16 @@ public class BrandUseCase implements IBrandServicePort {
             throw new MandatoryParameterException();
         }
 
+        //This exception is thrown if the brand name already exists
+        if(findBrandByName(brand.getName()) != null){
+            throw new BrandAlreadyExistsException();
+        }
+
         return brandPersistencePort.saveBrand(brand);
+    }
+
+    @Override
+    public Brand findBrandByName(String name) {
+        return brandPersistencePort.findBrandByName(name);
     }
 }

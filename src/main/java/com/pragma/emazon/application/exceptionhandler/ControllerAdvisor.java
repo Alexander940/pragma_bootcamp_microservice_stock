@@ -1,5 +1,6 @@
 package com.pragma.emazon.application.exceptionhandler;
 
+import com.pragma.emazon.application.exception.BrandAlreadyExistsException;
 import com.pragma.emazon.application.exception.CategoryAlreadyExistsException;
 import com.pragma.emazon.application.exception.MandatoryParameterException;
 import com.pragma.emazon.application.exception.StringTooLongException;
@@ -33,5 +34,12 @@ public class ControllerAdvisor {
             CategoryAlreadyExistsException categoryAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORY_ALREADY_EXISTS.getMessage()));
+    }
+
+    @ExceptionHandler(BrandAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handleBrandAlreadyExistsException(
+            BrandAlreadyExistsException brandAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.BRAND_ALREADY_EXISTS.getMessage()));
     }
 }

@@ -19,4 +19,11 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
         BrandEntity brandEntity = brandRepository.save(brandEntityMapper.toEntity(brand));
         return brandEntityMapper.toBrand(brandEntity);
     }
+
+    @Override
+    public Brand findBrandByName(String name) {
+        return brandRepository.findByName(name)
+                .map(brandEntityMapper::toBrand)
+                .orElse(null);
+    }
 }
