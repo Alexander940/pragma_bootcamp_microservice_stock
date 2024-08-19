@@ -31,6 +31,7 @@ public class ItemEntity {
     @Column(name = "price")
     private Double price;
 
-    @ManyToMany(mappedBy = "items")
-    private Set<BrandEntity> brands;
+    @ManyToOne
+    @JoinColumn(name = "BrandUniqueID", nullable = false)
+    private BrandEntity brand;
 }

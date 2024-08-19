@@ -30,6 +30,6 @@ public class BrandEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "brands")
+    @OneToMany(mappedBy = "brand")
     private Set<ItemEntity> items;
 }
