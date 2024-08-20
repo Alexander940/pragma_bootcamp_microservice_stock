@@ -1,7 +1,7 @@
 package com.pragma.emazon.application.usecase;
 
-import com.pragma.emazon.application.exception.BrandAlreadyExistsException;
 import com.pragma.emazon.application.exception.MandatoryParameterException;
+import com.pragma.emazon.application.exception.ObjectAlreadyExistsException;
 import com.pragma.emazon.application.exception.StringTooLongException;
 import com.pragma.emazon.domain.model.Brand;
 import com.pragma.emazon.domain.model.Item;
@@ -66,7 +66,7 @@ class BrandUseCaseTest {
 
         when(brandPersistencePort.findBrandByName(brand.getName())).thenReturn(brand);
 
-        assertThrows(BrandAlreadyExistsException.class, () -> brandUseCase.saveBrand(brand));
+        assertThrows(ObjectAlreadyExistsException.class, () -> brandUseCase.saveBrand(brand));
     }
 
     @Test

@@ -14,16 +14,16 @@ import java.util.List;
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
-public abstract class CategoryEntityMapper {
+public interface CategoryEntityMapper {
 
     @Mapping(source = "id",target = "id")
     @Mapping(source = "name", target = "name")
     @Mapping(source = "description", target = "description")
-    public abstract CategoryEntity toEntity(Category category);
+    CategoryEntity toEntity(Category category);
 
-    public abstract Category toCategory(CategoryEntity categoryEntity);
+    Category toCategory(CategoryEntity categoryEntity);
 
-    public Page<Category> toCategoriesPage(Page<CategoryEntity> categoryEntities){
+    default Page<Category> toCategoriesPage(Page<CategoryEntity> categoryEntities){
         List<Category> categories = categoryEntities
                 .map(this::toCategory)
                 .getContent();

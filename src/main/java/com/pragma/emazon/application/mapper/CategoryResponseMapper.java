@@ -12,11 +12,11 @@ import java.util.List;
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
-public abstract class CategoryResponseMapper {
+public interface CategoryResponseMapper {
 
-    public abstract CategoryResponse toCategoryResponse(Category category);
+    CategoryResponse toCategoryResponse(Category category);
 
-    public Page<CategoryResponse> toCategoryResponsesPage(Page<Category> categories){
+    default Page<CategoryResponse> toCategoryResponsesPage(Page<Category> categories){
         List<CategoryResponse> categoryResponses = categories
                 .map(this::toCategoryResponse)
                 .getContent();
