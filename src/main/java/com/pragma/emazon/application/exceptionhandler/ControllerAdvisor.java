@@ -1,8 +1,9 @@
 package com.pragma.emazon.application.exceptionhandler;
 
-import com.pragma.emazon.application.exception.CategoryAlreadyExistsException;
+import com.pragma.emazon.application.exception.ObjectAlreadyExistsException;
 import com.pragma.emazon.application.exception.MandatoryParameterException;
 import com.pragma.emazon.application.exception.StringTooLongException;
+import com.pragma.emazon.application.util.ObjectUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,26 +13,30 @@ import java.util.Map;
 
 public class ControllerAdvisor {
 
-    private static final String MESSAGE = "message";
-
     @ExceptionHandler(StringTooLongException.class)
     public ResponseEntity<Map<String, String>> handleStringTooLongException(
             StringTooLongException stringTooLongException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.STRING_TOO_LONG.getMessage()));
+                .body(Collections.singletonMap(ExceptionResponse.STRING_TOO_LONG.getMessage(),
+                        "'" + stringTooLongException.getAttributeName() + "' " +
+                        "length should be less than " + stringTooLongException.getMaxLength()));
     }
 
     @ExceptionHandler(MandatoryParameterException.class)
     public ResponseEntity<Map<String, String>> handleMandatoryParameterException(
             MandatoryParameterException mandatoryParameterException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.MANDATORY_PARAMETER.getMessage()));
+                .body(Collections.singletonMap(ExceptionResponse.MANDATORY_PARAMETER.getMessage(),
+                        "'" + mandatoryParameterException.getMandatoryParameter() + "' " +
+                        "can't be null or empty"));
     }
 
-    @ExceptionHandler(CategoryAlreadyExistsException.class)
+    @ExceptionHandler(ObjectAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleCategoryAlreadyExistsException(
-            CategoryAlreadyExistsException categoryAlreadyExistsException) {
+            ObjectAlreadyExistsException objectAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORY_ALREADY_EXISTS.getMessage()));
+                .body(Collections.singletonMap(ExceptionResponse.OBJECT_ALREADY_EXISTS.getMessage(),
+                        ObjectUtil.getClassName(objectAlreadyExistsException.getObject()) + " with this " +
+                        objectAlreadyExistsException.getUniqueAttribute() + " already exists"));
     }
 }

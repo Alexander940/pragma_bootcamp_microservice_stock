@@ -1,6 +1,6 @@
 package com.pragma.emazon.application.usecase;
 
-import com.pragma.emazon.application.exception.CategoryAlreadyExistsException;
+import com.pragma.emazon.application.exception.ObjectAlreadyExistsException;
 import com.pragma.emazon.application.exception.MandatoryParameterException;
 import com.pragma.emazon.application.exception.StringTooLongException;
 import com.pragma.emazon.domain.model.Category;
@@ -31,7 +31,7 @@ class CategoryUseCaseTest {
 
     @Test
     void when_saveCategory_useCase_is_called_and_return_an_CategoryResponse() {
-        Category category = new Category(1L,"name", "description");
+        Category category = new Category(1L, "name", "description");
 
         when(categoryPersistencePort.saveCategory(category)).thenReturn(category);
 
@@ -69,7 +69,7 @@ class CategoryUseCaseTest {
 
         when(categoryPersistencePort.findCategoryByName(category.getName())).thenReturn(category);
 
-        assertThrows(CategoryAlreadyExistsException.class, () -> categoryUseCase.saveCategory(category));
+        assertThrows(ObjectAlreadyExistsException.class, () -> categoryUseCase.saveCategory(category));
     }
 
     @Test
