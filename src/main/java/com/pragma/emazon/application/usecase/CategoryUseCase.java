@@ -3,7 +3,7 @@ package com.pragma.emazon.application.usecase;
 import com.pragma.emazon.application.exception.ObjectAlreadyExistsException;
 import com.pragma.emazon.application.exception.MandatoryParameterException;
 import com.pragma.emazon.application.exception.StringTooLongException;
-import com.pragma.emazon.application.util.CategoryUtil;
+import com.pragma.emazon.application.util.StringUtil;
 import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.model.Category;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
@@ -28,12 +28,12 @@ public class CategoryUseCase implements ICategoryServicePort {
         }
 
         //This exception is thrown if the category name long is up to 50 characters
-        if(CategoryUtil.isCategoryNameTooLong(category.getName())){
+        if(StringUtil.assessHigherLength(category.getName(), 50)){
             throw new StringTooLongException(category.getName(), 50);
         }
 
         //This exception is thrown if the category description long is up to 90 characters
-        if(CategoryUtil.isCategoryDescriptionTooLong(category.getDescription())){
+        if(StringUtil.assessHigherLength(category.getDescription(), 90)){
             throw new StringTooLongException(category.getDescription(), 90);
         }
 
