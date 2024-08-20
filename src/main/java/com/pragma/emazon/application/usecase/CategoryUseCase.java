@@ -7,6 +7,8 @@ import com.pragma.emazon.application.util.StringUtil;
 import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.model.Category;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public class CategoryUseCase implements ICategoryServicePort {
     private final ICategoryPersistencePort categoryPersistencePort;
