@@ -1,8 +1,8 @@
-package com.pragma.emazon.application.exceptionhandler;
+package com.pragma.emazon.infrastructure.exceptionhandler;
 
-import com.pragma.emazon.application.exception.ObjectAlreadyExistsException;
-import com.pragma.emazon.application.exception.MandatoryParameterException;
-import com.pragma.emazon.application.exception.StringTooLongException;
+import com.pragma.emazon.domain.exception.ObjectAlreadyExistsException;
+import com.pragma.emazon.domain.exception.MandatoryParameterException;
+import com.pragma.emazon.domain.exception.StringTooLongException;
 import com.pragma.emazon.application.util.ObjectUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
