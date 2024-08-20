@@ -24,8 +24,8 @@ public class CategoryUseCase implements ICategoryServicePort {
             throw new ObjectAlreadyExistsException(category, "name");
         }
 
-        //This exception is thrown if the category description is empty
-        if(category.getDescription().isEmpty()){
+        //This exception is thrown if the category description is empty or null
+        if(category.getDescription().isEmpty() || category.getDescription() == null){
             throw new MandatoryParameterException("description");
         }
 
