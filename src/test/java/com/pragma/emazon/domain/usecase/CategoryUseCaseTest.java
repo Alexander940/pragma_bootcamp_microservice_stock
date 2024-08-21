@@ -1,4 +1,4 @@
-package com.pragma.emazon.application.usecase;
+package com.pragma.emazon.domain.usecase;
 
 import com.pragma.emazon.domain.exception.ObjectAlreadyExistsException;
 import com.pragma.emazon.domain.exception.MandatoryParameterException;
