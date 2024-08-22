@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,6 +30,6 @@ public class ItemEntity {
     private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "BrandUniqueID", nullable = false)
+    @JoinColumn(name = "branduniqueid", nullable = false)
     private BrandEntity brand;
 }

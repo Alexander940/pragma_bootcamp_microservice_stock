@@ -39,7 +39,7 @@ public class BeanConfiguration {
 
     @Bean
     public IBrandPersistencePort brandPersistencePort() {
-        return new BrandJpaAdapter(brandRepository, brandEntityMapper);
+        return new BrandJpaAdapter(brandRepository, brandEntityMapper, pageAdapterMapper);
     }
 
     @Bean

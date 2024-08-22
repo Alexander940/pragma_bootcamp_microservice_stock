@@ -8,6 +8,7 @@ import com.pragma.emazon.domain.api.IBrandServicePort;
 import com.pragma.emazon.domain.model.Brand;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,5 +25,10 @@ public class BrandHandler implements IBrandHandler {
         Brand brand = brandServicePort.saveBrand(brandRequestMapper.toBrand(brandRequest));
 
         return brandResponseMapper.toBrandResponse(brand);
+    }
+
+    @Override
+    public Page<BrandResponse> findAllBrands(int page, int size, String sort) {
+        return brandResponseMapper.toBrandResponsePage(brandServicePort.findAllBrands(page, size, sort));
     }
 }

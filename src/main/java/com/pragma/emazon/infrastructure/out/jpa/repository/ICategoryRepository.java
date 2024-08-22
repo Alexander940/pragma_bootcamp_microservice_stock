@@ -13,7 +13,8 @@ import java.util.Optional;
 @Repository
 public interface ICategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
-    Page<CategoryEntity> findAll(Pageable pageable);
+    @NonNull
+    Page<CategoryEntity> findAll(@NonNull Pageable pageable);
 
     Optional<CategoryEntity> findByName(String name);
 

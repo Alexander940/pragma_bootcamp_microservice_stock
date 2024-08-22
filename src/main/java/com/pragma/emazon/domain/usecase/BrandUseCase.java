@@ -6,6 +6,7 @@ import com.pragma.emazon.domain.exception.StringTooLongException;
 import com.pragma.emazon.application.util.StringUtil;
 import com.pragma.emazon.domain.api.IBrandServicePort;
 import com.pragma.emazon.domain.model.Brand;
+import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.domain.spi.IBrandPersistencePort;
 
 public class BrandUseCase implements IBrandServicePort {
@@ -44,5 +45,10 @@ public class BrandUseCase implements IBrandServicePort {
     @Override
     public Brand findBrandByName(String name) {
         return brandPersistencePort.findBrandByName(name);
+    }
+
+    @Override
+    public PageModel<Brand> findAllBrands(int page, int size, String sort) {
+        return brandPersistencePort.findAllBrands(page, size, sort);
     }
 }

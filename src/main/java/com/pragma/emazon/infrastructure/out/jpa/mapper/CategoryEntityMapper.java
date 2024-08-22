@@ -27,6 +27,6 @@ public interface CategoryEntityMapper {
         List<Category> categories = categoryEntities
                 .map(this::toCategory)
                 .getContent();
-        return new PageImpl<>(categories, PageRequest.of(categoryEntities.getNumber(), categoryEntities.getSize()), categoryEntities.getTotalElements());
+        return new PageImpl<>(categories, categoryEntities.getPageable(), categoryEntities.getTotalElements());
     }
 }
