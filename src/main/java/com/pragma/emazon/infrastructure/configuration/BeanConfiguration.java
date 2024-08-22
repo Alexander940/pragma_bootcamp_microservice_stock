@@ -5,6 +5,7 @@ import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
 import com.pragma.emazon.domain.usecase.CategoryUseCase;
 import com.pragma.emazon.infrastructure.out.jpa.adapter.CategoryJpaAdapter;
 import com.pragma.emazon.infrastructure.out.jpa.mapper.CategoryEntityMapper;
+import com.pragma.emazon.infrastructure.out.jpa.mapper.PageAdapterMapper;
 import com.pragma.emazon.infrastructure.out.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +17,11 @@ public class BeanConfiguration {
 
     private final ICategoryRepository categoryRepository;
     private final CategoryEntityMapper categoryEntityMapper;
+    private final PageAdapterMapper pageAdapterMapper;
 
     @Bean
     public ICategoryPersistencePort categoryPersistencePort() {
-        return new CategoryJpaAdapter(categoryRepository, categoryEntityMapper);
+        return new CategoryJpaAdapter(categoryRepository, categoryEntityMapper, pageAdapterMapper);
     }
 
     @Bean

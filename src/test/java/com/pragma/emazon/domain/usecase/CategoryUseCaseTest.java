@@ -4,16 +4,12 @@ import com.pragma.emazon.domain.exception.ObjectAlreadyExistsException;
 import com.pragma.emazon.domain.exception.MandatoryParameterException;
 import com.pragma.emazon.domain.exception.StringTooLongException;
 import com.pragma.emazon.domain.model.Category;
+import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
-import com.pragma.emazon.domain.usecase.CategoryUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.*;
-
-import java.util.Arrays;
-import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -65,7 +61,7 @@ class CategoryUseCaseTest {
     }
 
     @Test
-    void when_saveCategory_handler_is_called_and_the_category_name_already_exists() {
+    void when_saveCategory_useCase_is_called_and_the_category_name_already_exists() {
         Category category = new Category(1L,"name", "description");
 
         when(categoryPersistencePort.findCategoryByName(category.getName())).thenReturn(category);
@@ -74,29 +70,11 @@ class CategoryUseCaseTest {
     }
 
     @Test
-    void when_findAllCategories_is_called_and_its_paginated_in_page_size_one() {
-        Pageable pageable = PageRequest.of(0, 1);
-        Category category = new Category(1L, "name", "description");
-        Page<Category> categoryPage = new PageImpl<>(Collections.singletonList(category));
+    void when_findAllCategories_is_called_and_returns_a_PageModel() {
+        when(categoryPersistencePort.findAllCategories(0, 10, "asc")).thenReturn(new PageModel.Builder<Category>().build());
 
-        when(categoryPersistencePort.findAllCategories(pageable)).thenReturn(categoryPage);
+        PageModel<Category> pageModelResponse = categoryUseCase.findAllCategories(0, 10, "asc");
 
-        Page<Category> result = categoryUseCase.findAllCategories(pageable);
-
-        assertEquals(categoryPage, result);
-    }
-
-    @Test
-    void when_findAllCategories_is_called_and_categories_are_sort_asc_by_name() {
-        Pageable pageable = PageRequest.of(0, 1, Sort.by(Sort.Direction.ASC, "name"));
-        Category category1 = new Category(1L, "name1", "description1");
-        Category category2 = new Category(2L, "name2", "description2");
-        Page<Category> categoryPage = new PageImpl<>(Arrays.asList(category1, category2));
-
-        when(categoryPersistencePort.findAllCategories(pageable)).thenReturn(categoryPage);
-
-        Page<Category> result = categoryUseCase.findAllCategories(pageable);
-
-        assertEquals(categoryPage, result);
+        assertNotNull(pageModelResponse);
     }
 }

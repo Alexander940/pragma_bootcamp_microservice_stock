@@ -46,9 +46,7 @@ public class CategoryRestController {
             @RequestParam(defaultValue = "10") Integer size,
             @RequestParam(defaultValue = "asc") String sort
     ) {
-        Sort.Direction sortDirection = sort.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "name"));
-        Page<CategoryResponse> categoryResponses = categoryHandler.findAllCategories(pageable);
+        Page<CategoryResponse> categoryResponses = categoryHandler.findAllCategories(page, size, sort);
         return ResponseEntity.ok(categoryResponses);
     }
 }

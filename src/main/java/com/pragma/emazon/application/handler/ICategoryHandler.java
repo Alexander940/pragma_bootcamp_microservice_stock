@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface ICategoryHandler {
     CategoryResponse saveCategory(CategoryRequest category);
-    Page<CategoryResponse> findAllCategories(Pageable pageable);
+    Page<CategoryResponse> findAllCategories(int page, int size, String sort);
 }

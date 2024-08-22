@@ -1,11 +1,11 @@
 package com.pragma.emazon.domain.spi;
 
 import com.pragma.emazon.domain.model.Category;
-import org.springframework.data.domain.Page;
+import com.pragma.emazon.domain.model.PageModel;
 import org.springframework.data.domain.Pageable;
 
 public interface ICategoryPersistencePort {
     Category saveCategory(Category category);
     Category findCategoryByName(String name);
-    Page<Category> findAllCategories(Pageable pageable);
+    PageModel<Category> findAllCategories(int page, int size, String sort);
 }

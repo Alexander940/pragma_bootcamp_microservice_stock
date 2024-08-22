@@ -6,6 +6,7 @@ import com.pragma.emazon.domain.exception.StringTooLongException;
 import com.pragma.emazon.application.util.StringUtil;
 import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.model.Category;
+import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,7 +49,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public Page<Category> findAllCategories(Pageable pageable) {
-        return categoryPersistencePort.findAllCategories(pageable);
+    public PageModel<Category> findAllCategories(int page, int size, String sort) {
+        return categoryPersistencePort.findAllCategories(page, size, sort);
     }
 }
