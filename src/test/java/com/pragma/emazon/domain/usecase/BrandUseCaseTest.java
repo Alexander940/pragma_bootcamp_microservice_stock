@@ -1,8 +1,8 @@
-package com.pragma.emazon.application.usecase;
+package com.pragma.emazon.domain.usecase;
 
-import com.pragma.emazon.application.exception.MandatoryParameterException;
-import com.pragma.emazon.application.exception.ObjectAlreadyExistsException;
-import com.pragma.emazon.application.exception.StringTooLongException;
+import com.pragma.emazon.domain.exception.MandatoryParameterException;
+import com.pragma.emazon.domain.exception.ObjectAlreadyExistsException;
+import com.pragma.emazon.domain.exception.StringTooLongException;
 import com.pragma.emazon.domain.model.Brand;
 import com.pragma.emazon.domain.model.Item;
 import com.pragma.emazon.domain.spi.IBrandPersistencePort;

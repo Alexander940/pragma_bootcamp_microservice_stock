@@ -1,4 +1,4 @@
-package com.pragma.emazon.application.exceptionhandler;
+package com.pragma.emazon.infrastructure.exceptionhandler;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

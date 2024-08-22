@@ -1,11 +1,12 @@
-package com.pragma.emazon.application.usecase;
+package com.pragma.emazon.domain.usecase;
 
-import com.pragma.emazon.application.exception.ObjectAlreadyExistsException;
-import com.pragma.emazon.application.exception.MandatoryParameterException;
-import com.pragma.emazon.application.exception.StringTooLongException;
+import com.pragma.emazon.domain.exception.ObjectAlreadyExistsException;
+import com.pragma.emazon.domain.exception.MandatoryParameterException;
+import com.pragma.emazon.domain.exception.StringTooLongException;
 import com.pragma.emazon.application.util.StringUtil;
 import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.model.Category;
+import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +25,8 @@ public class CategoryUseCase implements ICategoryServicePort {
             throw new ObjectAlreadyExistsException(category, "name");
         }
 
-        //This exception is thrown if the category description is empty
-        if(category.getDescription().isEmpty()){
+        //This exception is thrown if the category description is empty or null
+        if(category.getDescription().isEmpty() || category.getDescription() == null){
             throw new MandatoryParameterException("description");
         }
 
@@ -48,7 +49,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public Page<Category> findAllCategories(Pageable pageable) {
-        return categoryPersistencePort.findAllCategories(pageable);
+    public PageModel<Category> findAllCategories(int page, int size, String sort) {
+        return categoryPersistencePort.findAllCategories(page, size, sort);
     }
 }
