@@ -8,7 +8,6 @@ import com.pragma.emazon.domain.api.IBrandServicePort;
 import com.pragma.emazon.domain.model.Brand;
 import com.pragma.emazon.domain.model.Item;
 import com.pragma.emazon.domain.model.PageModel;
-import com.pragma.emazon.domain.usecase.CategoryUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
