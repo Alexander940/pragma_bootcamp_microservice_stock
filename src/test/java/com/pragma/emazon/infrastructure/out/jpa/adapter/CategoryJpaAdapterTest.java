@@ -30,8 +30,11 @@ class CategoryJpaAdapterTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        categoryJpaAdapter = new CategoryJpaAdapter(categoryRepository, categoryEntityMapper, pageAdapterMapper);
+        try (AutoCloseable mocks = MockitoAnnotations.openMocks(this)) {
+            categoryJpaAdapter = new CategoryJpaAdapter(categoryRepository, categoryEntityMapper, pageAdapterMapper);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
