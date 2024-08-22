@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -31,5 +31,5 @@ public class BrandEntity {
     private String description;
 
     @OneToMany(mappedBy = "brand")
-    private Set<ItemEntity> items;
+    private List<ItemEntity> items;
 }
