@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.NonNull;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 public record BrandResponse(
         @Size(max = 50)
@@ -13,6 +13,6 @@ public record BrandResponse(
         @NonNull
         @Size(max = 120)
         String description,
-        Set<Item> items
+        List<Item> items
 ) implements Serializable {
 }

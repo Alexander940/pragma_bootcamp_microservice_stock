@@ -22,8 +22,11 @@ class CategoryUseCaseTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        categoryUseCase = new CategoryUseCase(categoryPersistencePort);
+        try (AutoCloseable mocks = MockitoAnnotations.openMocks(this)) {
+            categoryUseCase = new CategoryUseCase(categoryPersistencePort);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test

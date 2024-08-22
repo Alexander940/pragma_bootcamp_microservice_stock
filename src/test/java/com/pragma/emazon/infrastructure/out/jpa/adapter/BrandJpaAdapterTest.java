@@ -16,7 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.util.Set;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -43,7 +43,7 @@ class BrandJpaAdapterTest {
     @Test
     void when_saveBrand_method_is_called_and_returns_a_BrandEntity() {
         Brand brand = new Brand(1L, "name", "description", new Item[]{});
-        BrandEntity brandEntity = new BrandEntity(1L, "name", "description", Set.of());
+        BrandEntity brandEntity = new BrandEntity(1L, "name", "description", List.of());
 
         when(brandRepository.save(brandEntityMapper.toEntity(brand))).thenReturn(brandEntity);
         when(brandEntityMapper.toBrand(brandEntity)).thenReturn(brand);
@@ -56,7 +56,7 @@ class BrandJpaAdapterTest {
     @Test
     void when_findBrandByName_is_called_and_returns_a_BrandEntity() {
         Brand brand = new Brand(1L, "name", "description", new Item[]{});
-        BrandEntity brandEntity = new BrandEntity(1L, "name", "description", Set.of());
+        BrandEntity brandEntity = new BrandEntity(1L, "name", "description", List.of());
 
         when(brandRepository.findByName("name")).thenReturn(java.util.Optional.of(brandEntity));
         when(brandEntityMapper.toBrand(brandEntity)).thenReturn(brand);

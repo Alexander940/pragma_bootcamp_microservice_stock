@@ -5,11 +5,18 @@ import com.pragma.emazon.domain.exception.ObjectAlreadyExistsException;
 import com.pragma.emazon.domain.exception.StringTooLongException;
 import com.pragma.emazon.domain.model.Brand;
 import com.pragma.emazon.domain.model.Item;
+import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.domain.spi.IBrandPersistencePort;
+import com.pragma.emazon.infrastructure.out.jpa.adapter.BrandJpaAdapter;
+import com.pragma.emazon.infrastructure.out.jpa.entity.BrandEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -22,8 +29,11 @@ class BrandUseCaseTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        brandUseCase = new BrandUseCase(brandPersistencePort);
+        try (AutoCloseable mocks = MockitoAnnotations.openMocks(this)) {
+            brandUseCase = new BrandUseCase(brandPersistencePort);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -78,5 +88,16 @@ class BrandUseCaseTest {
         Brand foundBrand = brandUseCase.findBrandByName("name");
 
         assertEquals(brand, foundBrand);
+    }
+
+    @Test
+    void when_findAllCategories_method_is_called_and_returns_a_PageModel() {
+        PageModel<Brand> pageModel = new PageModel.Builder<Brand>().build();
+
+        when(brandPersistencePort.findAllBrands(0, 10, "asc")).thenReturn(pageModel);
+
+        PageModel<Brand> pageModelResponse = brandUseCase.findAllBrands(0, 10, "asc");
+
+        assertEquals(pageModel, pageModelResponse);
     }
 }

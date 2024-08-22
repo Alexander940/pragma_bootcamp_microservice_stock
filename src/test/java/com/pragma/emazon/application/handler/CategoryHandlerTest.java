@@ -32,8 +32,11 @@ class CategoryHandlerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        categoryHandler = new CategoryHandler(categoryRequestMapper, categoryResponseMapper, categoryServicePort);
+        try (AutoCloseable mocks = MockitoAnnotations.openMocks(this)) {
+            categoryHandler = new CategoryHandler(categoryRequestMapper, categoryResponseMapper, categoryServicePort);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
