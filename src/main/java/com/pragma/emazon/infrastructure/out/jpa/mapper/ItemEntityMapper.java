@@ -3,19 +3,44 @@ package com.pragma.emazon.infrastructure.out.jpa.mapper;
 import com.pragma.emazon.domain.model.Brand;
 import com.pragma.emazon.domain.model.Category;
 import com.pragma.emazon.domain.model.Item;
+import com.pragma.emazon.infrastructure.out.jpa.entity.BrandEntity;
+import com.pragma.emazon.infrastructure.out.jpa.entity.CategoryEntity;
 import com.pragma.emazon.infrastructure.out.jpa.entity.ItemEntity;
 import com.pragma.emazon.infrastructure.util.ListUtil;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface ItemEntityMapper {
 
-    ItemEntity toItemEntity(Item item);
+    default ItemEntity toItemEntity(Item item){
+        ItemEntity itemEntity = new ItemEntity();
+
+        itemEntity.setId(item.getId());
+        itemEntity.setName(item.getName());
+        itemEntity.setDescription(item.getDescription());
+        itemEntity.setPrice(item.getPrice());
+        itemEntity.setQuantity(item.getQuantity());
+
+        BrandEntity brandEntity = new BrandEntity();
+        brandEntity.setId(item.getBrandId());
+
+        itemEntity.setBrand(brandEntity);
+
+        List<CategoryEntity> categoryEntities = Arrays.stream(item.getCategoriesId()).map(categoryId -> {
+            CategoryEntity categoryEntity = new CategoryEntity();
+            categoryEntity.setId(categoryId);
+            return categoryEntity;
+        }).toList();
+        itemEntity.setCategories(categoryEntities);
+
+        return itemEntity;
+    }
 
     default Item toItem(ItemEntity itemEntity){
         Item.Builder builder = new Item.Builder();
