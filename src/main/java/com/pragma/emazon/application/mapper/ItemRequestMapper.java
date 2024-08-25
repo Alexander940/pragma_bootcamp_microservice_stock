@@ -1,6 +1,7 @@
 package com.pragma.emazon.application.mapper;
 
 import com.pragma.emazon.application.dto.ItemRequest;
+import com.pragma.emazon.application.util.ListUtil;
 import com.pragma.emazon.domain.model.Item;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -17,7 +18,7 @@ public interface ItemRequestMapper {
                 .description(itemRequest.description())
                 .price(itemRequest.price())
                 .quantity(itemRequest.quantity())
-                .categoriesId(itemRequest.categoriesId())
+                .categoriesId(ListUtil.toArray(itemRequest.categoriesId()))
                 .brandId(itemRequest.brandId());
 
         return builder.build();
