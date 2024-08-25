@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,4 +34,12 @@ public class ItemEntity {
     @ManyToOne
     @JoinColumn(name = "branduniqueid", nullable = false)
     private BrandEntity brand;
+
+    @ManyToMany
+    @JoinTable(
+        name = "item_category",
+        joinColumns = @JoinColumn(name = "itemuniqueid"),
+        inverseJoinColumns = @JoinColumn(name = "categoryuniqueid")
+    )
+    private List<CategoryEntity> categories;
 }

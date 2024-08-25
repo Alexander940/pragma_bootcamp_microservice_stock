@@ -10,6 +10,7 @@ public record CategoryResponse(
         String name,
         @NonNull
         @Size(max = 90)
-        String description
+        String description,
+        ItemResponse [] items
 ) implements Serializable {
 }
