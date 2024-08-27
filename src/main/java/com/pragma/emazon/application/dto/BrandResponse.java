@@ -10,9 +10,8 @@ import java.util.List;
 public record BrandResponse(
         @Size(max = 50)
         String name,
-        @NonNull
         @Size(max = 120)
         String description,
-        List<Item> items
+        List<ItemResponse> items
 ) implements Serializable {
 }

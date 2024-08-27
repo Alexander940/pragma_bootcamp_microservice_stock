@@ -6,7 +6,6 @@ import com.pragma.emazon.domain.model.Item;
 import com.pragma.emazon.infrastructure.out.jpa.entity.BrandEntity;
 import com.pragma.emazon.infrastructure.out.jpa.entity.CategoryEntity;
 import com.pragma.emazon.infrastructure.out.jpa.entity.ItemEntity;
-import com.pragma.emazon.infrastructure.util.ListUtil;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -19,6 +18,8 @@ import java.util.List;
 public interface ItemEntityMapper {
 
     default ItemEntity toItemEntity(Item item){
+        if (item == null) return null;
+
         ItemEntity itemEntity = new ItemEntity();
 
         itemEntity.setId(item.getId());
@@ -28,9 +29,12 @@ public interface ItemEntityMapper {
         itemEntity.setQuantity(item.getQuantity());
 
         BrandEntity brandEntity = new BrandEntity();
-        brandEntity.setId(item.getBrandId());
 
-        itemEntity.setBrand(brandEntity);
+        if (item.getBrandId() != null){
+            brandEntity.setId(item.getBrandId());
+
+            itemEntity.setBrand(brandEntity);
+        }
 
         List<CategoryEntity> categoryEntities = Arrays.stream(item.getCategoriesId()).map(categoryId -> {
             CategoryEntity categoryEntity = new CategoryEntity();
@@ -43,6 +47,8 @@ public interface ItemEntityMapper {
     }
 
     default Item toItem(ItemEntity itemEntity){
+        if (itemEntity == null) return null;
+
         Item.Builder builder = new Item.Builder();
 
         builder.id(itemEntity.getId())
@@ -50,9 +56,10 @@ public interface ItemEntityMapper {
                 .description(itemEntity.getDescription())
                 .price(itemEntity.getPrice())
                 .quantity(itemEntity.getQuantity())
-                .categories(ListUtil.toArray(itemEntity.getCategories().stream()
+                .categories(itemEntity.getCategories().stream()
                         .map(categoryEntity -> new Category(categoryEntity.getId(), categoryEntity.getName(), categoryEntity.getDescription(), new Item[]{}))
-                        .toList()))
+                        .toList()
+                        .toArray(new Category[0]))
                 .brand(new Brand(itemEntity.getBrand().getId(), itemEntity.getBrand().getName(), itemEntity.getBrand().getDescription(), new Item[]{}));
 
         return builder.build();

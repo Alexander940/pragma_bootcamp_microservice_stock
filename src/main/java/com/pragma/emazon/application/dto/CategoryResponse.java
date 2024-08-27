@@ -9,7 +9,6 @@ import java.util.List;
 public record CategoryResponse(
         @Size(max = 50)
         String name,
-        @NonNull
         @Size(max = 90)
         String description,
         List<ItemResponse> items

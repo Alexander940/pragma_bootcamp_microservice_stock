@@ -12,7 +12,7 @@ public record ItemResponse(
         String description,
         int quantity,
         double price,
-        List<Category> categories,
-        Brand brand
+        List<CategoryResponse> categories,
+        BrandResponse brand
 ) implements Serializable {
 }
