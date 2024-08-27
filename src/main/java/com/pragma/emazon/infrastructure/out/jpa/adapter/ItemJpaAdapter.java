@@ -15,6 +15,6 @@ public class ItemJpaAdapter implements IItemPersistencePort {
 
     public Item saveItem(Item item) {
         ItemEntity itemEntity = itemEntityMapper.toItemEntity(item);
-        return itemEntityMapper.toItem(itemEntity);
+        return itemEntityMapper.toItem(itemRepository.save(itemEntity));
     }
 }
