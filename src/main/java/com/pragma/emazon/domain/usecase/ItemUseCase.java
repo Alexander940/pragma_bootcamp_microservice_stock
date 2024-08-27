@@ -21,7 +21,7 @@ public class ItemUseCase implements IItemServicePort {
             throw new AssociatedAttributesNumberException("categories", "1 to 3");
         }
 
-        if(ArrayUtil.assessEqualContent(item.getCategoriesId())){
+        if(ArrayUtil.hasDuplicates(item.getCategoriesId())){
             throw new RepeatedAttributeException("categories");
         }
 

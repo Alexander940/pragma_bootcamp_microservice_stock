@@ -1,6 +1,7 @@
 package com.pragma.emazon.infrastructure.out.jpa.adapter;
 
 import com.pragma.emazon.domain.model.Category;
+import com.pragma.emazon.domain.model.Item;
 import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.infrastructure.out.jpa.entity.CategoryEntity;
 import com.pragma.emazon.infrastructure.out.jpa.mapper.CategoryEntityMapper;
@@ -39,8 +40,8 @@ class CategoryJpaAdapterTest {
 
     @Test
     void when_saveCategory_is_called_and_returns_a_category() {
-        Category category = new Category(1L, "name", "description");
-        CategoryEntity categoryEntity = new CategoryEntity(1L, "name", "description");
+        Category category = new Category(1L, "name", "description", new Item[]{});
+        CategoryEntity categoryEntity = new CategoryEntity(1L, "name", "description", null);
 
         when(categoryEntityMapper.toEntity(category)).thenReturn(categoryEntity);
         when(categoryRepository.save(categoryEntity)).thenReturn(categoryEntity);
@@ -53,8 +54,8 @@ class CategoryJpaAdapterTest {
 
     @Test
     void when_findCategoryByName_is_called_and_returns_a_category() {
-        Category category = new Category(1L, "name", "description");
-        CategoryEntity categoryEntity = new CategoryEntity(1L, "name", "description");
+        Category category = new Category(1L, "name", "description", new Item[]{});
+        CategoryEntity categoryEntity = new CategoryEntity(1L, "name", "description", null);
 
         when(categoryRepository.findByName("name")).thenReturn(java.util.Optional.of(categoryEntity));
         when(categoryEntityMapper.toCategory(categoryEntity)).thenReturn(category);

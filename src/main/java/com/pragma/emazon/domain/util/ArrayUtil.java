@@ -1,22 +1,20 @@
 package com.pragma.emazon.domain.util;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ArrayUtil {
 
     private ArrayUtil() {
     }
 
-    public static boolean assessEqualContent(Long [] array){
-        Long evaluated;
-
-        for (int i = 0; i < array.length; i++) {
-            evaluated = array[i];
-            for (int j = i + 1; j < array.length - i; j++) {
-                if(evaluated.equals(array[j])){
-                    return true;
-                }
+    public static boolean hasDuplicates(Long [] array){
+        Set<Long> seen = new HashSet<>();
+        for (Long value : array) {
+            if (!seen.add(value)) {
+                return true;
             }
         }
-
         return false;
     }
 }

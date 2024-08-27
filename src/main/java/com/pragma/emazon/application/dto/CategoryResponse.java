@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Size;
 import lombok.NonNull;
 
 import java.io.Serializable;
+import java.util.List;
 
 public record CategoryResponse(
         @Size(max = 50)
@@ -11,6 +12,6 @@ public record CategoryResponse(
         @NonNull
         @Size(max = 90)
         String description,
-        ItemResponse [] items
+        List<ItemResponse> items
 ) implements Serializable {
 }

@@ -6,6 +6,7 @@ import com.pragma.emazon.application.mapper.CategoryRequestMapper;
 import com.pragma.emazon.application.mapper.CategoryResponseMapper;
 import com.pragma.emazon.domain.api.ICategoryServicePort;
 import com.pragma.emazon.domain.model.Category;
+import com.pragma.emazon.domain.model.Item;
 import com.pragma.emazon.domain.model.PageModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,12 +42,12 @@ class CategoryHandlerTest {
 
     @Test
     void when_saveCategory_handler_is_called_and_return_an_CategoryResponse() {
-        Category category = new Category(1L,"name", "description");
+        Category category = new Category(1L,"name", "description", new Item[]{});
         CategoryRequest categoryRequest = new CategoryRequest("name", "description");
 
         when(categoryRequestMapper.toCategory(categoryRequest)).thenReturn(category);
         when(categoryServicePort.saveCategory(category)).thenReturn(category);
-        when(categoryResponseMapper.toCategoryResponse(category)).thenReturn(new CategoryResponse("name", "description"));
+        when(categoryResponseMapper.toCategoryResponse(category)).thenReturn(new CategoryResponse("name", "description", null));
 
         CategoryResponse categoryResponse = categoryHandler.saveCategory(categoryRequest);
 

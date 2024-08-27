@@ -4,6 +4,7 @@ import com.pragma.emazon.domain.exception.ObjectAlreadyExistsException;
 import com.pragma.emazon.domain.exception.MandatoryParameterException;
 import com.pragma.emazon.domain.exception.StringTooLongException;
 import com.pragma.emazon.domain.model.Category;
+import com.pragma.emazon.domain.model.Item;
 import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.domain.spi.ICategoryPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +32,7 @@ class CategoryUseCaseTest {
 
     @Test
     void when_saveCategory_useCase_is_called_and_return_an_CategoryResponse() {
-        Category category = new Category(1L, "name", "description");
+        Category category = new Category(1L, "name", "description", new Item[]{});
 
         when(categoryPersistencePort.saveCategory(category)).thenReturn(category);
 
@@ -43,7 +44,7 @@ class CategoryUseCaseTest {
     @Test
     void when_saveCategory_useCase_is_called_and_name_is_too_long() {
         String name = "a".repeat(51);
-        Category category = new Category(1L, name,"description");
+        Category category = new Category(1L, name,"description", new Item[]{});
 
         assertThrows(StringTooLongException.class, () -> categoryUseCase.saveCategory(category));
     }
@@ -51,21 +52,21 @@ class CategoryUseCaseTest {
     @Test
     void when_saveCategory_useCase_is_called_and_description_is_too_long() {
         String description = "a".repeat(91);
-        Category category = new Category(1L, "name", description);
+        Category category = new Category(1L, "name", description, new Item[]{});
 
         assertThrows(StringTooLongException.class, () -> categoryUseCase.saveCategory(category));
     }
 
     @Test
     void when_saveCategory_useCase_is_called_and_description_is_missing() {
-        Category category = new Category(1L, "name", "");
+        Category category = new Category(1L, "name", "", new Item[]{});
 
         assertThrows(MandatoryParameterException.class, () -> categoryUseCase.saveCategory(category));
     }
 
     @Test
     void when_saveCategory_useCase_is_called_and_the_category_name_already_exists() {
-        Category category = new Category(1L,"name", "description");
+        Category category = new Category(1L,"name", "description", new Item[]{});
 
         when(categoryPersistencePort.findCategoryByName(category.getName())).thenReturn(category);
 
