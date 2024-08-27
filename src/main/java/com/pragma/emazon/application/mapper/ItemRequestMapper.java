@@ -17,8 +17,8 @@ public interface ItemRequestMapper {
                 .description(itemRequest.description())
                 .price(itemRequest.price())
                 .quantity(itemRequest.quantity())
-                .categoriesId(itemRequest.categoriesId().toArray(new Long[0]))
-                .brandId(itemRequest.brandId());
+                .categoriesName(itemRequest.categoriesName().toArray(new String[0]))
+                .brandName(itemRequest.brandName());
 
         return builder.build();
     }

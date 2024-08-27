@@ -19,12 +19,11 @@ import com.pragma.emazon.infrastructure.out.jpa.mapper.PageAdapterMapper;
 import com.pragma.emazon.infrastructure.out.jpa.repository.IBrandRepository;
 import com.pragma.emazon.infrastructure.out.jpa.repository.ICategoryRepository;
 import com.pragma.emazon.infrastructure.out.jpa.repository.IItemRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@RequiredArgsConstructor
 public class BeanConfiguration {
 
     private final ICategoryRepository categoryRepository;
@@ -33,7 +32,18 @@ public class BeanConfiguration {
     private final IBrandRepository brandRepository;
     private final BrandEntityMapper brandEntityMapper;
     private final IItemRepository itemRepository;
+    @Qualifier("itemEntityMapperDecorator")
     private final ItemEntityMapper itemEntityMapper;
+
+    public BeanConfiguration(ICategoryRepository categoryRepository, CategoryEntityMapper categoryEntityMapper, PageAdapterMapper pageAdapterMapper, IBrandRepository brandRepository, BrandEntityMapper brandEntityMapper, IItemRepository itemRepository,@Qualifier("itemEntityMapperDecorator") ItemEntityMapper itemEntityMapper) {
+        this.categoryRepository = categoryRepository;
+        this.categoryEntityMapper = categoryEntityMapper;
+        this.pageAdapterMapper = pageAdapterMapper;
+        this.brandRepository = brandRepository;
+        this.brandEntityMapper = brandEntityMapper;
+        this.itemRepository = itemRepository;
+        this.itemEntityMapper = itemEntityMapper;
+    }
 
     @Bean
     public ICategoryPersistencePort categoryPersistencePort() {

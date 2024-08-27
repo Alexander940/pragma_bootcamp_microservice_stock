@@ -7,8 +7,8 @@ public class Item {
     private String description;
     private int quantity;
     private double price;
-    private Long[] categoriesId;
-    private Long brandId;
+    private String[] categoriesName;
+    private String brandName;
     private Category [] categories;
     private Brand brand;
 
@@ -18,8 +18,8 @@ public class Item {
         this.description = builder.description;
         this.quantity = builder.quantity;
         this.price = builder.price;
-        this.categoriesId = builder.categoriesId;
-        this.brandId = builder.brandId;
+        this.categoriesName = builder.categoriesName;
+        this.brandName = builder.brandName;
         this.categories = builder.categories;
         this.brand = builder.brand;
     }
@@ -30,8 +30,8 @@ public class Item {
         private String description;
         private int quantity;
         private double price;
-        private Long[] categoriesId;
-        private Long brandId;
+        private String[] categoriesName;
+        private String brandName;
         private Category [] categories;
         private Brand brand;
 
@@ -60,13 +60,13 @@ public class Item {
             return this;
         }
 
-        public Builder categoriesId(Long[] categoriesId) {
-            this.categoriesId = categoriesId;
+        public Builder categoriesName(String[] categoriesName) {
+            this.categoriesName = categoriesName;
             return this;
         }
 
-        public Builder brandId(Long brandId) {
-            this.brandId = brandId;
+        public Builder brandName(String brandName) {
+            this.brandName = brandName;
             return this;
         }
 
@@ -125,20 +125,20 @@ public class Item {
         this.price = price;
     }
 
-    public Long[] getCategoriesId() {
-        return categoriesId;
+    public String[] getCategoriesName() {
+        return categoriesName;
     }
 
-    public void setCategoriesId(Long[] categoriesId) {
-        this.categoriesId = categoriesId;
+    public void setCategoriesName(String[] categoriesName) {
+        this.categoriesName = categoriesName;
     }
 
-    public Long getBrandId() {
-        return brandId;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public Category [] getCategories() {

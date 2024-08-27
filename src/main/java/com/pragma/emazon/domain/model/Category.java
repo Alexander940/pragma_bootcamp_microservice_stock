@@ -4,7 +4,6 @@ public class Category {
     private Long id;
     private String name;
     private String description;
-    private Long [] itemsId;
     private Item [] items;
 
     public Category(Long id, String name, String description, Item[] items) {
@@ -36,14 +35,6 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Long[] getItemsId() {
-        return itemsId;
-    }
-
-    public void setItemsId(Long[] itemsId) {
-        this.itemsId = itemsId;
     }
 
     public Item[] getItems() {

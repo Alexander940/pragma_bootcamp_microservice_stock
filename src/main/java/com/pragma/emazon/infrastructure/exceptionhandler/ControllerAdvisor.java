@@ -1,8 +1,6 @@
 package com.pragma.emazon.infrastructure.exceptionhandler;
 
-import com.pragma.emazon.domain.exception.ObjectAlreadyExistsException;
-import com.pragma.emazon.domain.exception.MandatoryParameterException;
-import com.pragma.emazon.domain.exception.StringTooLongException;
+import com.pragma.emazon.domain.exception.*;
 import com.pragma.emazon.application.util.ObjectUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +36,22 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(ExceptionResponse.OBJECT_ALREADY_EXISTS.getMessage(),
                         ObjectUtil.getClassName(objectAlreadyExistsException.getObject()) + " with this " +
                         objectAlreadyExistsException.getUniqueAttribute() + " already exists"));
+    }
+
+    @ExceptionHandler(AssociatedAttributesNumberException.class)
+    public ResponseEntity<Map<String, String>> handleAssociatedAttributeNumberException(
+            AssociatedAttributesNumberException associatedAttributeNumberException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(ExceptionResponse.ASSOCIATED_ATTRIBUTE_NUMBER.getMessage(),
+                       associatedAttributeNumberException.getAttributeName() + " number should be between " +
+                                associatedAttributeNumberException.getAssociatedAttributesNumber()));
+    }
+
+    @ExceptionHandler(RepeatedAttributeException.class)
+    public ResponseEntity<Map<String, String>> handleRepeatedAttributeException(
+            RepeatedAttributeException repeatedAttributeException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(ExceptionResponse.REPEATED_ATTRIBUTE.getMessage(),
+                        repeatedAttributeException.getAttributeName() + " should not be repeated"));
     }
 }

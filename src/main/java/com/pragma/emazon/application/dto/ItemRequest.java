@@ -8,7 +8,7 @@ public record ItemRequest(
         String description,
         int quantity,
         double price,
-        List<Long> categoriesId,
-        Long brandId
+        List<String> categoriesName,
+        String brandName
 ) implements Serializable {
 }

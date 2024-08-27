@@ -44,7 +44,7 @@ class ItemHandlerTest {
                 .price(10.0)
                 .quantity(10);
         Item item = builder.build();
-        ItemRequest itemRequest = new ItemRequest("name", "description", 10, 10, List.of(), 1L);
+        ItemRequest itemRequest = new ItemRequest("name", "description", 10, 10, List.of(), "brand");
         ItemResponse itemResponse = new ItemResponse("name", "description", 10, 10, List.of(), new BrandResponse("", "", List.of()));
 
         when(itemRequestMapper.toItem(itemRequest)).thenReturn(item);

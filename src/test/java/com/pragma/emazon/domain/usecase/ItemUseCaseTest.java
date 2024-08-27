@@ -34,8 +34,8 @@ class ItemUseCaseTest {
                 .description("description")
                 .price(1.0)
                 .quantity(10)
-                .categoriesId(new Long[]{1L})
-                .brandId(1L);
+                .categoriesName(new String[]{"category1"})
+                .brandName("brand1");
         Item item = builder.build();
 
         when(itemPersistencePort.saveItem(item)).thenReturn(item);
@@ -52,8 +52,8 @@ class ItemUseCaseTest {
                 .description("description")
                 .price(1.0)
                 .quantity(10)
-                .categoriesId(new Long[]{})
-                .brandId(1L);
+                .categoriesName(new String[]{})
+                .brandName("brand1");
         Item item = builder.build();
 
         assertThrows(AssociatedAttributesNumberException.class, () -> itemUseCase.saveItem(item));
@@ -66,8 +66,8 @@ class ItemUseCaseTest {
                 .description("description")
                 .price(1.0)
                 .quantity(10)
-                .categoriesId(new Long[]{1L, 2L, 3L, 4L})
-                .brandId(1L);
+                .categoriesName(new String[]{"category1", "category2", "category3", "category4"})
+                .brandName("brand1");
         Item item = builder.build();
 
         assertThrows(AssociatedAttributesNumberException.class, () -> itemUseCase.saveItem(item));
@@ -80,8 +80,8 @@ class ItemUseCaseTest {
                 .description("description")
                 .price(1.0)
                 .quantity(10)
-                .categoriesId(new Long[]{1L, 2L, 2L})
-                .brandId(1L);
+                .categoriesName(new String[]{"category1", "category2", "category2"})
+                .brandName("brand1");
         Item item = builder.build();
 
         assertThrows(RepeatedAttributeException.class, () -> itemUseCase.saveItem(item));

@@ -17,11 +17,11 @@ public class ItemUseCase implements IItemServicePort {
 
     @Override
     public Item saveItem(Item item) {
-        if(item.getCategoriesId().length < 1 || item.getCategoriesId().length > 3){
+        if(item.getCategoriesName().length < 1 || item.getCategoriesName().length > 3){
             throw new AssociatedAttributesNumberException("categories", "1 to 3");
         }
 
-        if(ArrayUtil.hasDuplicates(item.getCategoriesId())){
+        if(ArrayUtil.hasDuplicates(item.getCategoriesName())){
             throw new RepeatedAttributeException("categories");
         }
 

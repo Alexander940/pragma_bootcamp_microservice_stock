@@ -17,4 +17,14 @@ public class ArrayUtil {
         }
         return false;
     }
+
+    public static boolean hasDuplicates(String [] array){
+        Set<String> seen = new HashSet<>();
+        for (String value : array) {
+            if (!seen.add(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

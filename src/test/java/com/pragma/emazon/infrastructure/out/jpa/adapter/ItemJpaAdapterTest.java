@@ -36,8 +36,8 @@ class ItemJpaAdapterTest {
                 .description("description")
                 .price(1.0)
                 .quantity(10)
-                .categoriesId(new Long[]{})
-                .brandId(1L);
+                .categoriesName(new String[]{})
+                .brandName("brand1");
         Item item = builder.build();
         ItemEntity itemEntity = new ItemEntity(1L, "name", "description", 10,1.0, null, null);
 
