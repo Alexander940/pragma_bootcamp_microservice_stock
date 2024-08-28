@@ -8,6 +8,8 @@ import com.pragma.emazon.infrastructure.out.jpa.entity.CategoryEntity;
 import com.pragma.emazon.infrastructure.out.jpa.entity.ItemEntity;
 import com.pragma.emazon.infrastructure.out.jpa.repository.IBrandRepository;
 import com.pragma.emazon.infrastructure.out.jpa.repository.ICategoryRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -70,5 +72,13 @@ public class ItemEntityMapperDecorator implements ItemEntityMapper{
                 .brand(new Brand(itemEntity.getBrand().getId(), itemEntity.getBrand().getName(), itemEntity.getBrand().getDescription(), new Item[]{}));
 
         return builder.build();
+    }
+
+    @Override
+    public Page<Item> toItemsPage(Page<ItemEntity> itemEntities) {
+        List<Item> items = itemEntities
+                .map(this::toItem)
+                .getContent();
+        return new PageImpl<>(items, itemEntities.getPageable(), itemEntities.getTotalElements());
     }
 }

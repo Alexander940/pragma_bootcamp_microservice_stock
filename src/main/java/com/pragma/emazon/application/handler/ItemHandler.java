@@ -8,6 +8,7 @@ import com.pragma.emazon.domain.api.IItemServicePort;
 import com.pragma.emazon.domain.model.Item;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,4 +25,11 @@ public class ItemHandler implements IItemHandler{
         Item item = itemServicePort.saveItem(itemRequestMapper.toItem(itemRequest));
         return itemResponseMapper.toItemResponse(item);
     }
+
+    @Override
+    public Page<ItemResponse> findAllItems(int page, int size, String sortDirection, String sortField) {
+        return itemResponseMapper.toItemResponsePage(itemServicePort.findAllItems(page, size, sortDirection, sortField));
+    }
+
+
 }

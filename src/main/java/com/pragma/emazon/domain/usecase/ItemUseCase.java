@@ -4,6 +4,7 @@ import com.pragma.emazon.domain.api.IItemServicePort;
 import com.pragma.emazon.domain.exception.AssociatedAttributesNumberException;
 import com.pragma.emazon.domain.exception.RepeatedAttributeException;
 import com.pragma.emazon.domain.model.Item;
+import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.domain.spi.IItemPersistencePort;
 import com.pragma.emazon.domain.util.ArrayUtil;
 
@@ -26,5 +27,10 @@ public class ItemUseCase implements IItemServicePort {
         }
 
         return itemPersistencePort.saveItem(item);
+    }
+
+    @Override
+    public PageModel<Item> findAllItems(int page, int size, String sortDirection, String sortField) {
+        return itemPersistencePort.findAllItems(page, size, sortDirection, sortField);
     }
 }

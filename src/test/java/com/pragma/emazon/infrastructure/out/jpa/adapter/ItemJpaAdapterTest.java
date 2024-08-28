@@ -3,6 +3,7 @@ package com.pragma.emazon.infrastructure.out.jpa.adapter;
 import com.pragma.emazon.domain.model.Item;
 import com.pragma.emazon.infrastructure.out.jpa.entity.ItemEntity;
 import com.pragma.emazon.infrastructure.out.jpa.mapper.ItemEntityMapper;
+import com.pragma.emazon.infrastructure.out.jpa.mapper.PageAdapterMapper;
 import com.pragma.emazon.infrastructure.out.jpa.repository.IItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,11 +20,13 @@ class ItemJpaAdapterTest {
     private IItemRepository itemRepository;
     @Mock
     private ItemEntityMapper itemEntityMapper;
+    @Mock
+    private PageAdapterMapper pageAdapterMapper;
 
     @BeforeEach
     void setUp() {
         try (AutoCloseable mocks = MockitoAnnotations.openMocks(this)) {
-            itemJpaAdapter = new ItemJpaAdapter(itemRepository, itemEntityMapper);
+            itemJpaAdapter = new ItemJpaAdapter(itemRepository, itemEntityMapper, pageAdapterMapper);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
