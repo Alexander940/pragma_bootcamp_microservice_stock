@@ -1,6 +1,7 @@
 package com.pragma.emazon.infrastructure.out.jpa.adapter;
 
 import com.pragma.emazon.domain.model.Item;
+import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.infrastructure.out.jpa.entity.ItemEntity;
 import com.pragma.emazon.infrastructure.out.jpa.mapper.ItemEntityMapper;
 import com.pragma.emazon.infrastructure.out.jpa.mapper.PageAdapterMapper;
@@ -9,6 +10,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -51,5 +56,21 @@ class ItemJpaAdapterTest {
         Item itemResponse = itemJpaAdapter.saveItem(item);
 
         assertEquals(item, itemResponse);
+    }
+
+    @Test
+    void when_findAllItems_method_is_called_and_returns_a_PageModel() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "name"));
+        Page<ItemEntity> itemEntityPage = Page.empty();
+        Page<Item> itemPage = Page.empty();
+        PageModel<Item> pageModel = new PageModel.Builder<Item>().build();
+
+        when(itemRepository.findAll(pageable)).thenReturn(itemEntityPage);
+        when(itemEntityMapper.toItemsPage(itemEntityPage)).thenReturn(itemPage);
+        when(pageAdapterMapper.toPageModel(itemPage)).thenReturn(pageModel);
+
+        PageModel<Item> pageModelResponse = itemJpaAdapter.findAllItems(0, 10, "asc", "name");
+
+        assertEquals(pageModel, pageModelResponse);
     }
 }

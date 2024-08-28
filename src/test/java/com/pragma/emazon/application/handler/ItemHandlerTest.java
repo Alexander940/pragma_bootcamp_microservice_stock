@@ -7,10 +7,13 @@ import com.pragma.emazon.application.mapper.ItemRequestMapper;
 import com.pragma.emazon.application.mapper.ItemResponseMapper;
 import com.pragma.emazon.domain.api.IItemServicePort;
 import com.pragma.emazon.domain.model.Item;
+import com.pragma.emazon.domain.model.PageModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
 
@@ -54,5 +57,18 @@ class ItemHandlerTest {
         ItemResponse itemResponses = itemHandler.saveItem(itemRequest);
 
         assertEquals(itemResponse, itemResponses);
+    }
+
+    @Test
+    void when_findAllItems_method_is_called_and_returns_a_Page() {
+        Page<ItemResponse> itemResponsePage = new PageImpl<>(List.of(new ItemResponse("name", "description", 10, 10, List.of(), new BrandResponse("", "", List.of()))));
+        PageModel<Item> itemPageModel = new PageModel.Builder<Item>().build();
+
+        when(itemServicePort.findAllItems(0, 10, "asc", "name")).thenReturn(itemPageModel);
+        when(itemResponseMapper.toItemResponsePage(itemPageModel)).thenReturn(itemResponsePage);
+
+        Page<ItemResponse> itemResponses = itemHandler.findAllItems(0, 10, "asc", "name");
+
+        assertEquals(itemResponsePage, itemResponses);
     }
 }

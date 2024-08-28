@@ -3,6 +3,7 @@ package com.pragma.emazon.domain.usecase;
 import com.pragma.emazon.domain.exception.AssociatedAttributesNumberException;
 import com.pragma.emazon.domain.exception.RepeatedAttributeException;
 import com.pragma.emazon.domain.model.Item;
+import com.pragma.emazon.domain.model.PageModel;
 import com.pragma.emazon.domain.spi.IItemPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,5 +86,16 @@ class ItemUseCaseTest {
         Item item = builder.build();
 
         assertThrows(RepeatedAttributeException.class, () -> itemUseCase.saveItem(item));
+    }
+
+    @Test
+    void when_findAllItems_method_is_called_and_returns_a_PageModel() {
+        PageModel<Item> pageModel = new PageModel.Builder<Item>().build();
+
+        when(itemPersistencePort.findAllItems(0, 10, "asc", "name")).thenReturn(pageModel);
+
+        PageModel<Item> pageModelResponse = itemUseCase.findAllItems(0, 10, "asc", "name");
+
+        assertEquals(pageModel, pageModelResponse);
     }
 }
